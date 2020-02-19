@@ -6,10 +6,17 @@ namespace Webbaard\Pub\Application\Controller;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Webbaard\Pub\Infra\Tab\Projection\Tab\TabFinder;
+use Webbaard\Pub\Infra\Menu\Projection\Menu\MenuItemFinder;
 
 final class MenuCollectionController
 {
+    private MenuItemFinder $menuItemFinder;
+
+    public function __construct(MenuItemFinder $menuFinder)
+    {
+        $this->menuItemFinder = $menuFinder;
+    }
+
     public function collectionAction(): Response
     {
         return new JsonResponse([

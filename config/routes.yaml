@@ -13,3 +13,31 @@ data::tabs:
 data::menu:
   path: /menu/list.json
   defaults: { _controller: Webbaard\Pub\Application\Controller\MenuCollectionController::collectionAction }
+
+command::open-tab:
+  path: /api/commands/open-tab
+  defaults:
+    _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
+    command_name: 'Webbaard\Pub\Domain\Tab\Command\OpenTab'
+
+data::tab:
+  path: /tab/{id}.json
+  defaults: { _controller: Webbaard\Pub\Application\Controller\TabController::detailsAction }
+
+command::add-to-tab:
+  path: /api/commands/add-to-tab
+  defaults:
+    _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
+    command_name: 'Webbaard\Pub\Domain\Tab\Command\AddToTab'
+
+command::settle-tab:
+  path: /api/commands/pay-tab
+  defaults:
+    _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
+    command_name: 'Webbaard\Pub\Domain\Tab\Command\PayTab'
+
+command::add-menu-item:
+  path: /api/commands/add-menu-item
+  defaults:
+    _controller: Webbaard\Pub\Application\Controller\ApiCommandController::postAction
+    command_name: 'Webbaard\Pub\Domain\Menu\Command\AddItemToMenu'

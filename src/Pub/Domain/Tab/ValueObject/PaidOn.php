@@ -2,11 +2,8 @@
 
 declare(strict_types=1);
 
-
 namespace Webbaard\Pub\Domain\Tab\ValueObject;
 
-
-use DateTimeImmutable;
 use DateTimeInterface;
 
 final class PaidOn
@@ -23,13 +20,8 @@ final class PaidOn
         return new self($date);
     }
 
-    public static function now(): PaidOn
+    public function toString(): string
     {
-        return new self(new DateTimeImmutable());
-    }
-
-    public function toString()
-    {
-        return $this->date->format("Y-m-d H:i:s");
+        return $this->date->format('Y-m-d H:i:s');
     }
 }

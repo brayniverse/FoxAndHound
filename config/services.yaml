@@ -26,9 +26,9 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-#    Webbaard\Pub\Infra\Tab\Projection\Tab\TabProjectionManager:
-#        arguments:
-#            - '@prooph_event_store.projection_manager.tab_projection_manager'
+    #    Webbaard\Pub\Infra\Tab\Projection\Tab\TabProjectionManager:
+    #        arguments:
+    #            - '@prooph_event_store.projection_manager.tab_projection_manager'
 
     Webbaard\Pub\Domain\Tab\CommandHandler\:
         resource: '../src/Pub/Domain/Tab/CommandHandler'
@@ -36,3 +36,22 @@ services:
         public: true
         tags:
             - { name: 'prooph_service_bus.tab_command_bus.route_target', message_detection: true }
+
+    Webbaard\Pub\Domain\Menu\CommandHandler\:
+        resource: '../src/Pub/Domain/Menu/CommandHandler'
+        arguments: ['@menu_item_collection']
+        public: true
+        tags:
+            - { name: 'prooph_service_bus.menu_command_bus.route_target', message_detection: true }
+
+    pub.tab_projection.tab_finder:
+        class: Webbaard\Pub\Infra\Tab\Projection\Tab\TabFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    pub.menu_projection.menu_item_finder:
+        class: Webbaard\Pub\Infra\Tab\Projection\Menu\MenuItemFinder
+        arguments: ['@doctrine.dbal.default_connection']
+
+    Webbaard\Pub\Infra\Tab\Projection\Tab\TabProjection: ~
+    Webbaard\Pub\Infra\Tab\Projection\Tab\TabReadmodel:
+        arguments: ['@doctrine.dbal.default_connection']
